@@ -1,6 +1,7 @@
 const { verifyJWT } = require('../lib/jwt');
 const { User } = require('../models/User');
 
+// used to protect sensitive routes
 const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) return res.redirect('/login');
@@ -15,6 +16,7 @@ const requireAuth = (req, res, next) => {
   }
 }
 
+// run on every GET to inject the user info into the view header
 const checkUser = async (req, res, next) => {
   res.locals.user = null;
   const token = req.cookies.jwt;
